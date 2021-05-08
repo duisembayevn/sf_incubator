@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sf2/utils/extensions/widget+circle+wrapper.dart';
 
 class GridMedia extends StatelessWidget {
   final List<String> mediaLinks;
@@ -7,7 +8,6 @@ class GridMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
@@ -32,10 +32,9 @@ class GridMedia extends StatelessWidget {
       height: 96,
       child: Stack(
         children: [
-          FittedBox(
-            child:Image(image: NetworkImage(imageURL)),
-            fit: BoxFit.fill,
-          ),
+          Image(
+            image: NetworkImage(imageURL), 
+            fit: BoxFit.fill, alignment: Alignment.center,),
           Positioned(
             child: closeButton(), 
             top: 0, 
@@ -52,21 +51,16 @@ class GridMedia extends StatelessWidget {
   }
 
   Widget closeButton() {
-    return IconButton(
-      icon: ClipOval(
-        child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(3),
-          child: ClipOval(
-            child: Container(
-              color: Colors.red,
-              padding: EdgeInsets.all(3),
-              child: Icon(Icons.close, size: 20, color: Colors.white,)
-            )
-          )
-        ), 
-      ), 
-      onPressed: null
+    return wrapCircleBorder(
+      Colors.white, 
+      wrapCircleBorder(
+        Colors.red, 
+        Icon(
+          Icons.close, 
+          size: 20, 
+          color: Colors.white), 
+        EdgeInsets.all(3)),
+      EdgeInsets.all(3)
     );
   }
 }
