@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sf2/utils/theme/colors.dart';
+import 'package:sf2/utils/theme/fonts.dart';
+import 'package:sf2/utils/extensions/widget+circle+wrapper.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String fullname;
   final String jobTitle;
   final String imageURL;
   
-
   ProfileHeader(
     {
       Key key, 
@@ -13,7 +15,7 @@ class ProfileHeader extends StatelessWidget {
       this.jobTitle,
       this.imageURL
     }
-  ) : super(key: key);
+  ): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,45 +25,43 @@ class ProfileHeader extends StatelessWidget {
         Center(
           child: Stack(
             children: [
-              userImage(),
+              _userImage(),
               Positioned(
                 bottom: 0,
                 right: 4,
-                child: addImageButton(),
+                child: _addImageButton(),
               )
             ],
           )
         ), 
 
         Padding(padding: EdgeInsets.only(top: 24)),
-        Text(fullname, style: TextStyle(fontSize: 16)),
-        Text(jobTitle, style: TextStyle(fontSize: 12))
+        Text(fullname, style: TextStyle(fontSize: SFFontSize.subtitle1)),
+        Text(jobTitle, style: TextStyle(fontSize: SFFontSize.caption, color: Colors.grey))
       ]
     );
   }
 
-  Widget userImage() {
+  Widget _userImage() {
     return CircleAvatar(
       radius: 76,
       backgroundImage: NetworkImage(imageURL),
     );
   }
 
-  Widget addImageButton() {
-    return IconButton(
-      icon: ClipOval(
-        child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(3),
-          child: ClipOval(
-            child: Container(
-              color: Colors.blue,
-              padding: EdgeInsets.all(3),
-              child: Icon(Icons.add, size: 20, color: Colors.white,)
-            )
-          )
+  Widget _addImageButton() {
+    return wrapCircleBorder(
+      SFPalete.white, 
+      wrapCircleBorder(
+        SFPalete.violet500,
+        Icon(
+          Icons.add, 
+          size: 20, 
+          color: SFPalete.white
         ), 
-      ), onPressed: null
+        EdgeInsets.all(3)
+      ), 
+      EdgeInsets.all(3)
     );
   }
 }

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:sf2/utils/theme/fonts.dart';
 
 class SelectType extends StatelessWidget {
   final List<String> fontTypes;
@@ -15,12 +15,18 @@ class SelectType extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Container(
             padding: EdgeInsets.only(left: 4, right: 4),
-            child: Chip(label: Text(fontTypes[index].toString()))
+            child: Chip(
+              label: Text(
+                fontTypes[index].toString(),
+                style: TextStyle(
+                  fontSize: SFFontSize.body1, 
+                  color: Colors.grey)
+              )
+            )
           );
         },
         scrollDirection: Axis.horizontal,
         itemCount: fontTypes.length,
-        
       )
     );
   }
